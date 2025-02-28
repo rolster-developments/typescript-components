@@ -2,10 +2,10 @@ import { coincidence } from '@rolster/strings';
 import { FilterCriteria } from '../commons';
 
 export interface AbstractListElement<T = any> {
-  description: string;
-  value: T;
   compareTo(value: T): boolean;
+  description: string;
   filtrable(criteria: FilterCriteria<T>): boolean;
+  value: T;
 }
 
 export interface AbstractAutocompleteElement<T = any>
@@ -47,14 +47,28 @@ export type AutocompleteStoreNulleable<
 > = AutocompleteStore<T, E> | null;
 
 export class RolsterListElement<T = any> implements ListElement<T> {
-  constructor(public readonly value: T) {}
+  protected _uuid: string;
+
+  protected _description: string;
+
+  protected _title: string;
+
+  constructor(public readonly value: T) {
+    this._uuid = String(value);
+    this._description = String(value);
+    this._title = String(value);
+  }
+
+  public get uuid(): string {
+    return this._uuid;
+  }
 
   public get description(): string {
-    return String(this.value);
+    return this._description;
   }
 
   public get title(): string {
-    return String(this.value);
+    return this._title;
   }
 
   public compareTo(value: T): boolean {
@@ -75,10 +89,22 @@ export class RolsterAutocompleteElement<T = any>
   }
 }
 
-export class ListCollection<T = any> {
-  constructor(public readonly value: AbstractListElement<T>[]) {}
+export class ListCollection<T = any, K = string> {
+  protected map: Map<K, AbstractListElement<T>> = new Map();
 
-  public find(element: T): Undefined<AbstractListElement<T>> {
-    return this.value.find((current) => current.compareTo(element));
+  constructor(
+    public readonly value: AbstractListElement<T>[],
+    private reference?: (value: T) => K
+  ) {
+    reference &&
+      value.forEach((element) => {
+        this.map.set(reference(element.value), element);
+      });
+  }
+
+  public find(value: T): Undefined<AbstractListElement<T>> {
+    return this.reference
+      ? this.map.get(this.reference(value))
+      : this.value.find((current) => current.compareTo(value));
   }
 }
