@@ -36,20 +36,24 @@ export function monthIsOutsideMin(
   options: MonthPickerOptions,
   month: number
 ): boolean {
-  return options.minDate
-    ? options.minDate.getFullYear() === options.year &&
-        month < options.minDate.getMonth()
-    : false;
+  const { year, minDate } = options;
+
+  return !minDate
+    ? false
+    : minDate.getFullYear() > year ||
+        (minDate.getFullYear() === year && month < minDate.getMonth());
 }
 
 export function monthIsOutsideMax(
   options: MonthPickerOptions,
   month: number
 ): boolean {
-  return options.maxDate
-    ? options.maxDate.getFullYear() === options.year &&
-        month > options.maxDate.getMonth()
-    : false;
+  const { year, maxDate } = options;
+
+  return !maxDate
+    ? false
+    : maxDate.getFullYear() < year ||
+        (maxDate.getFullYear() === year && month > maxDate.getMonth());
 }
 
 export function monthIsOutside(
@@ -62,10 +66,12 @@ export function monthIsOutside(
 export function verifyMonthPicker(
   options: MonthPickerOptions
 ): Undefined<number> {
-  return options.minDate && monthIsOutsideMin(options, options.month)
-    ? options.minDate.getMonth()
-    : options.maxDate && monthIsOutsideMax(options, options.month)
-      ? options.maxDate.getMonth()
+  const { month, maxDate, minDate } = options;
+
+  return minDate && monthIsOutsideMin(options, month)
+    ? minDate.getMonth()
+    : maxDate && monthIsOutsideMax(options, month)
+      ? maxDate.getMonth()
       : undefined;
 }
 
