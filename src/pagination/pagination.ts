@@ -37,8 +37,8 @@ export class PaginationController<T = any> {
 
     const index = options.position ?? 0;
 
-    this.position = index <= this.maxPage ? index : 0;
     this.count = options.count || DEFAULT_COUNT_COLLECTION;
+    this.position = index <= this.maxPage ? index : 0;
 
     const { page, template } = this.createPagination({
       collection: this.suggestions,
