@@ -19,18 +19,28 @@ interface ElementOptions {
   position: number;
 }
 
-export function locationListCanBottom(content: Content, list: UlList): boolean {
+export function locationListCanBottom(
+  content: Content,
+  list: UlList,
+  minHeightList = 0
+): boolean {
   if (content && list) {
     const { top, height } = content.getBoundingClientRect();
 
-    return top + height + list.clientHeight < window.innerHeight;
+    return (
+      top + height + (list.clientHeight || minHeightList) < window.innerHeight
+    );
   }
 
   return true;
 }
 
-export function locationListCanTop(content: Content, list: UlList): boolean {
-  return !locationListCanBottom(content, list);
+export function locationListCanTop(
+  content: Content,
+  list: UlList,
+  minHeightList = 0
+): boolean {
+  return !locationListCanBottom(content, list, minHeightList);
 }
 
 function navigationInputDown(options: InputOptions): Undefined<number> {
