@@ -1,4 +1,4 @@
-import { itIsDefined } from '@rolster/commons';
+import { valueIsDefined } from '@rolster/commons';
 import { MONTH_NAMES, Month } from '@rolster/dates';
 import { MonthLimitTemplate, MonthState } from './models';
 
@@ -96,7 +96,7 @@ type MinMonthLimitProps = Omit<MonthLimitProps, 'maxDate'>;
 type MaxMonthLimitProps = Omit<MonthLimitProps, 'minDate'>;
 
 export function monthIsLimitMin(options: MinMonthLimitProps): boolean {
-  if (itIsDefined(options.month) && options.date) {
+  if (valueIsDefined(options.month) && options.date) {
     const minYear = options.minDate ? options.minDate.getFullYear() : 0;
     const minMonth = options.minDate ? options.minDate.getMonth() : 0;
 
@@ -107,7 +107,7 @@ export function monthIsLimitMin(options: MinMonthLimitProps): boolean {
 }
 
 export function monthIsLimitMax(options: MaxMonthLimitProps): boolean {
-  if (itIsDefined(options.month) && options.date) {
+  if (valueIsDefined(options.month) && options.date) {
     const maxYear = options.maxDate ? options.maxDate.getFullYear() : 10000;
     const maxMonth = options.maxDate ? options.maxDate.getMonth() : 11;
 
