@@ -3,6 +3,7 @@ import {
   getDateWeight,
   getDaysOfMonth
 } from '@rolster/dates';
+
 import { DAYS_WEEK } from './constants';
 import { DayState, WeekState } from './models';
 
@@ -11,8 +12,8 @@ export interface DayPickerOptions {
   day: number;
   month: number;
   year: number;
-  minDate?: Date;
   maxDate?: Date;
+  minDate?: Date;
 }
 
 function createDayState(

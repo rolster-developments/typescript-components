@@ -1,19 +1,20 @@
 import {
-  DateRange,
   assignDayInDate,
   dateIsBetween,
+  DateRange,
   getDateWeight,
   getDaysOfMonth
 } from '@rolster/dates';
-import { DayRangeState, WeekRangeState } from './models';
+
 import { DAYS_WEEK } from './constants';
+import { DayRangeState, WeekRangeState } from './models';
 
 export interface DayRangePickerOptions {
   date: Date;
   range: DateRange;
   sourceDate: Date;
-  minDate?: Date;
   maxDate?: Date;
+  minDate?: Date;
 }
 
 function dateIsSelected(base: Date, date: Date, day: number): boolean {

@@ -1,20 +1,21 @@
 import { valueIsDefined } from '@rolster/commons';
-import { MONTH_NAMES, Month } from '@rolster/dates';
+import { Month,MONTH_NAMES } from '@rolster/dates';
+
 import { MonthLimitTemplate, MonthState } from './models';
 
 export interface MonthPickerOptions {
   date: Date;
   month: number;
   year: number;
-  minDate?: Date;
   maxDate?: Date;
+  minDate?: Date;
 }
 
 export interface MonthLimitProps {
-  month?: Nulleable<number>;
   date?: Date;
   maxDate?: Date;
   minDate?: Date;
+  month?: Nulleable<number>;
 }
 
 function createMonthState(

@@ -1,4 +1,5 @@
 import { coincidence } from '@rolster/strings';
+
 import {
   AbstractAutocompleteElement as Element,
   AutocompleteStore,

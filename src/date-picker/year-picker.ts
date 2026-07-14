@@ -4,8 +4,8 @@ import { YearPickerTemplate, YearState } from './models';
 export interface YearPickerOptions {
   date: Date;
   year: number;
-  minDate?: Date;
   maxDate?: Date;
+  minDate?: Date;
 }
 
 function createYear(options: YearPickerOptions, value?: number): YearState {

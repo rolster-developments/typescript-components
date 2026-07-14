@@ -15,8 +15,8 @@ export interface DayRangeState {
   disabled: boolean;
   end: boolean;
   forbidden: boolean;
-  source: boolean;
   ranged: boolean;
+  source: boolean;
   value?: number;
 }
 
@@ -25,11 +25,11 @@ export interface WeekRangeState {
 }
 
 export interface MonthState {
-  value: number;
-  label: string;
   disabled: boolean;
   focused: boolean;
+  label: string;
   selected: boolean;
+  value: number;
 }
 
 export interface MonthLimitTemplate {
@@ -38,10 +38,10 @@ export interface MonthLimitTemplate {
 }
 
 export interface YearState {
-  value?: number;
   disabled: boolean;
   focused: boolean;
   selected: boolean;
+  value?: number;
 }
 
 export interface YearPickerTemplate {
