@@ -3,7 +3,6 @@ import {
   getDateWeight,
   getDaysOfMonth
 } from '@rolster/dates';
-
 import { DAYS_WEEK } from './constants';
 import { DayState, WeekState } from './models';
 

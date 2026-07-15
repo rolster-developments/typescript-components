@@ -1,6 +1,5 @@
 import { valueIsDefined } from '@rolster/commons';
 import { Month,MONTH_NAMES } from '@rolster/dates';
-
 import { MonthLimitTemplate, MonthState } from './models';
 
 export interface MonthPickerOptions {

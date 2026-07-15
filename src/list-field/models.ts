@@ -1,5 +1,4 @@
 import { coincidence } from '@rolster/strings';
-
 import { FilterCriteria } from '../commons';
 
 export interface AbstractListElement<T = any> {
