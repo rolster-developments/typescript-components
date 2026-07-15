@@ -9,8 +9,9 @@ export interface AbstractListElement<T = any> {
   value: T;
 }
 
-export interface AbstractAutocompleteElement<T = any>
-  extends AbstractListElement<T> {
+export interface AbstractAutocompleteElement<
+  T = any
+> extends AbstractListElement<T> {
   coincidence(pattern: string): boolean;
 }
 
@@ -23,8 +24,9 @@ export interface ListElement<T = any> extends AbstractListElement<T> {
   subtitle?: string;
 }
 
-export interface AutocompleteElement<T = any>
-  extends AbstractAutocompleteElement<T> {
+export interface AutocompleteElement<
+  T = any
+> extends AbstractAutocompleteElement<T> {
   title: string;
   code?: string;
   icon?: string;
@@ -97,15 +99,18 @@ export class ListCollection<T = any, K = string> {
     public readonly value: AbstractListElement<T>[],
     private reference?: (value: T) => K
   ) {
-    reference &&
+    if (reference) {
       value.forEach((element) => {
         this.map.set(reference(element.value), element);
       });
+    }
   }
 
   public find(value: T): Undefined<AbstractListElement<T>> {
-    return this.reference
-      ? this.map.get(this.reference(value))
-      : this.value.find((current) => current.compareTo(value));
+    if (!this.reference) {
+      return this.value.find((current) => current.compareTo(value));
+    }
+
+    return this.map.get(this.reference(value));
   }
 }
