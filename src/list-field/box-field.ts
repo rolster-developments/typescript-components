@@ -9,6 +9,7 @@ interface InputOptions {
   content: Content;
   event: KeyboardEvent;
   list: UlList;
+  higher?: boolean;
 }
 
 interface ElementOptions {
@@ -17,6 +18,7 @@ interface ElementOptions {
   input: Input;
   list: UlList;
   position: number;
+  higher?: boolean;
 }
 
 export function locationListCanBottom(
@@ -43,8 +45,16 @@ export function locationListCanTop(
   return !locationListCanBottom(content, list, minHeightList);
 }
 
+function listIsHigher(options: {
+  content: Content;
+  list: UlList;
+  higher?: boolean;
+}): boolean {
+  return options.higher ?? locationListCanTop(options.content, options.list);
+}
+
 function navigationInputDown(options: InputOptions): Undefined<number> {
-  if (locationListCanTop(options.content, options.list)) {
+  if (listIsHigher(options)) {
     return undefined;
   }
 
@@ -62,7 +72,7 @@ function navigationInputDown(options: InputOptions): Undefined<number> {
 }
 
 function navigationInputUp(options: InputOptions): Undefined<number> {
-  if (locationListCanBottom(options.content, options.list)) {
+  if (!listIsHigher(options)) {
     return undefined;
   }
 
@@ -98,7 +108,7 @@ function navigationElementDown(options: ElementOptions): number {
     return nextPosition;
   }
 
-  if (locationListCanTop(options.content, options.list)) {
+  if (listIsHigher(options)) {
     options.input?.focus();
   }
 
@@ -116,7 +126,7 @@ function navigationElementUp(options: ElementOptions): number {
     return previousPosition;
   }
 
-  if (locationListCanBottom(options.content, options.list)) {
+  if (!listIsHigher(options)) {
     options.input?.focus();
   }
 
