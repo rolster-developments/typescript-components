@@ -1,6 +1,6 @@
 {
   "name": "@rolster/components",
-  "version": "2.1.3",
+  "version": "2.1.4",
   "type": "module",
   "description": "Components utilities package compatible with Rolster projects.",
   "license": "MIT",
@@ -38,7 +38,7 @@
   },
   "dependencies": {
     "@rolster/commons": "^4.2.2",
-    "@rolster/dates": "^4.1.3",
+    "@rolster/dates": "^4.1.4",
     "@rolster/strings": "^3.1.1"
   },
   "devDependencies": {
