@@ -2,8 +2,11 @@ import { FilterCriteria } from '../commons';
 import { Page, PageState, Pagination, PaginationTemplate } from './models';
 
 const DEFAULT_COUNT_COLLECTION = 20;
+
 const FIRST_PAGE = 0;
+
 const MAX_VISIBLE_PAGES = 4;
+
 const MIN_NUMBER_PAGE = 1;
 
 interface ControllerOptions<T = any> {
@@ -35,10 +38,8 @@ export class PaginationController<T = any> {
     this.suggestions = options.suggestions;
     this.collection = options.suggestions;
 
-    const index = options.position ?? 0;
-
     this.count = options.count || DEFAULT_COUNT_COLLECTION;
-    this.position = index <= this.maxPage ? index : 0;
+    this.position = this.normalizeIndex(options.position ?? FIRST_PAGE);
 
     const { page, template } = this.createPagination({
       collection: this.suggestions,
@@ -54,6 +55,10 @@ export class PaginationController<T = any> {
     return this.collection.length
       ? Math.ceil(this.collection.length / this.count)
       : 0;
+  }
+
+  private normalizeIndex(index: number): number {
+    return index >= FIRST_PAGE && index < this.maxPage ? index : FIRST_PAGE;
   }
 
   public get page(): Page<T> {
@@ -92,7 +97,7 @@ export class PaginationController<T = any> {
     } else {
       const nextIndex = value + 1;
 
-      return nextIndex <= this.maxPage
+      return nextIndex < this.maxPage
         ? this.refreshForIndex(nextIndex)
         : undefined;
     }
@@ -112,6 +117,8 @@ export class PaginationController<T = any> {
     this.collection = criteria
       ? this.suggestions.filter((suggestion) => criteria.apply(suggestion))
       : this.suggestions;
+
+    this.position = this.normalizeIndex(this.position);
 
     const pagination = this.createPagination({
       collection: this.collection,
@@ -148,11 +155,11 @@ export class PaginationController<T = any> {
     const start = page.index * this.count + MIN_NUMBER_PAGE;
     let finish = (page.index + MIN_NUMBER_PAGE) * this.count;
 
-    if (finish > this.suggestions.length) {
-      finish = this.suggestions.length;
+    if (finish > this.collection.length) {
+      finish = this.collection.length;
     }
 
-    return `${start} - ${finish} de ${this.suggestions.length}`;
+    return `${start} - ${finish} de ${this.collection.length}`;
   }
 
   private createTemplate(page: Page<T>): PaginationTemplate {
