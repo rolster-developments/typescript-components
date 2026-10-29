@@ -354,4 +354,4 @@ The value of a listener is a `Date`, a `DateRange`, a `Time` (both from
 
 ## Contributing
 
-- Daniel Andrés Castillo Pedroza :rocket:
+:sparkles: Daniel Andrés Castillo Pedroza
