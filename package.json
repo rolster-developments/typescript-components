@@ -40,7 +40,7 @@
   },
   "dependencies": {
     "@rolster/commons": "^4.3.0",
-    "@rolster/dates": "^4.1.7",
+    "@rolster/dates": "^4.2.0",
     "@rolster/strings": "^3.2.0"
   },
   "devDependencies": {
